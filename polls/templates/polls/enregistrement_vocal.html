@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Enregistrement vocal</title>
+</head>
+
+<body>
+    <h1>Enregistrement vocal</h1>
+
+    <form method="post" enctype="multipart/form-data">
+
+        <input type="text" name="nom" placeholder="Nom" required>
+        <button id="startRecording">Démarrer l'enregistrement</button>
+        <button id="stopRecording" disabled>Arrêter l'enregistrement</button>
+
+        <audio id="audioPlayer" controls style="display: none;"></audio>
+        <button type="submit">Enregistrer</button>
+    </form>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/recordrtc"></script>
+    <script src="{% static 'js/enregistrement_vocal.js' %}"></script>
+    <script>
+        // Demander l'autorisation d'accès au microphone au chargement de la page
+        document.addEventListener('DOMContentLoaded', function () {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .catch(function (error) {
+                    console.error('Erreur lors de l\'obtention de l\'accès au microphone :', error);
+                });
+        });
+
+        // Empêcher le rechargement de la page lors du clic sur le bouton "Démarrer l'enregistrement"
+        document.getElementById('startRecording').addEventListener('click', function (event) {
+            event.preventDefault(); // Empêcher le comportement par défaut du bouton
+            // Ajoutez ici le code pour démarrer l'enregistrement
+        });
+        document.getElementById('stopRecording').addEventListener('click', function (event) {
+            event.preventDefault(); // Empêcher le comportement par défaut du bouton
+            // Ajoutez ici le code pour arrêter l'enregistrement
+        });
+
+    </script>
+</body>
+
+</html>

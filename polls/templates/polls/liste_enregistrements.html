@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Liste des enregistrements</title>
+</head>
+
+<body>
+    <h1>Liste des enregistrements</h1>
+
+    <ul>
+        {% for enregistrement in enregistrements %}
+        <li>
+            {{ enregistrement.nom }}
+            <audio controls>
+                <source src="/media/{{ enregistrement.fichier_audio }}" type="audio/webm">
+                Your browser does not support the audio element.
+            </audio>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
